@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #cv {
+            /* border: 1px solid black; */
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.297);
+        }
+
+        #container {
+            width: 1520px;
+            display: flex;
+            /* margin-top: 20px; */
+        }
+
+        #container #toolbar {
+            width: 72%;
+            height: 600px;
+            /* border: 1px red solid; */
+        }
+
+        #container #info {
+            width: 28%;
+            height: 600px;
+            /* border: 1px red solid; */
+            padding: 0 10px;
+        }
+
+        #container #info #infos {
+            width: 100%;
+            height: 450px;
+            border: 1px rgba(0, 0, 0, 0.297) solid;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.297);
+            display: flex;
+            align-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        #container #info #infos input {
+            padding: 10px;
+            width: 100%;
+        }
+
+        #toolbar #set-width,
+        #toolbar #set-color {
+            width: 100%;
+            height: 40px;
+            border: 3px green solid;
+            border-radius: 5px;
+            position: relative;
+            background-color: #F5F5DA;
+        }
+
+        #toolbar #set-width p,
+        #toolbar #set-color p {
+            position: absolute;
+            top: -8px;
+            left: 8px;
+        }
+
+        #toolbar #set-color ul {
+            display: flex;
+            margin-left: 40px;
+        }
+
+        #toolbar #set-color ul li {
+            width: 15px;
+            height: 15px;
+            margin: 5px;
+            position: relative;
+            top: 10px;
+            margin-left: 5px;
+            border: 3px black solid;
+        }
+
+        #toolbar #set-width {
+            height: 60px;
+            margin-top: 2px;
+        }
+
+        #toolbar #set-width ul {
+            /* width: 350px; */
+            /* height: 40px; */
+            /* border: 1px red solid; */
+            display: flex;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
+        #toolbar #set-width ul li {
+            padding: 5px;
+            /* border: 1px red solid; */
+            /* line-height: 10; */
+            margin-left: 20px;
+            border-radius: 5px;
+            color: #fff;
+            background-color: rgba(15, 82, 228, 0.685);
+        }
+
+        #toolbar #set-width input {
+            position: relative;
+            left: 40px;
+            top: 5px;
+        }
+
+        #toolbar #set-width i {
+            position: relative;
+            left: 60px;
+            /* top: 5px; */
+        }
+
+        #container #toolbar #console {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #container #toolbar #console #consoleone {
+            width: 250px;
+            height: 220px;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.297);
+            text-align: center;
+        }
+
+        #prepare-box {
+            height: 120px;
+            margin-bottom: 10px;
+        }
+
+        #container #toolbar #console h3 {
+            text-align: center;
+            border-bottom: 1px rgba(0, 0, 0, 0.096) solid;
+            width: 100%;
+        }
+
+        #container #toolbar #console #consoletwo {
+            width: 400px;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.297);
+            height: 180px;
+        }
+
+        #container #toolbar #console #consoletwo div {
+            margin: 10px;
+        }
+
+        #container #toolbar #console #consolethreen {
+            width: 400px;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.297);
+            height: 250px;
+            overflow-y: scroll;
+        }
+
+        #container #toolbar #console #consolethreen #sort-box {
+            margin: 10px;
+        }
+
+        #sort-box p {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #info-box {
+            width: 100%;
+            height: 70%;
+            overflow-y: scroll;
+        }
+
+        .usercontent {
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>实时【你画我猜】</h1>
+    <div id="container">
+        <div id="toolbar">
+            <canvas id="cv" width="1090" height="600"></canvas>
+            <div id="set-color">
+                <p>颜色</p>
+                <ul>
+                    <li data-color="red" style="background-color:red;"></li>
+                    <li data-color="green" style="background-color:green;"></li>
+                    <li data-color="blue" style="background-color:blue;"></li>
+                    <li data-color="pink" style="background-color:pink;"></li>
+                    <li data-color="orange" style="background-color:orange;"></li>
+                    <li data-color="#FFFF00" style="background-color:#FFFF00;"></li>
+                    <li data-color="#800080" style="background-color:#800080;"></li>
+                    <li data-color="#000000" style="background-color:#000000;"></li>
+                </ul>
+            </div>
+            <div id="set-width">
+                <p>线条</p>
+                <input type="range" name="" id="range" max="10" min="1" value="1"><i>1</i>
+                <ul>
+                    <li>画笔</li>
+                    <li>橡皮擦</li>
+                    <li class="clear">清空</li>
+                    <li>下载</li>
+                </ul>
+            </div>
+            <div id="console">
+                <div id="consoleone">
+                    <h3>上场玩家</h3>
+                    <ul id="prepare-box">
+                    </ul>
+                    <button id="upUser">上场</button>
+                    <button>自动上场</button>
+                </div>
+                <div id="consoletwo">
+                    <h3>信息栏</h3>
+                    <div>绘画玩家:</div>
+                    <div id="currentTime">剩余时间: <span></span></div>
+                    <div>关键词语</div>
+                </div>
+                <div id="consolethreen">
+                    <h3>排行榜</h3>
+                    <div id="sort-box">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="info">
+            <div id="infos">
+                <h2>消息框</h2>
+                <div id="info-box">
+                </div>
+                <input type="text" placeholder="输入消息或者词语,回车键发送" name="" id="msg">
+            </div>
+        </div>
+    </div>
+    <img id="img" src="" alt="">
+</body>
+<script src="./jquery-3.4.1.min.js"></script>
+<script>
+    let userName = null
+    userName = prompt("请输入你的名字") || +new Date()
+    let cvs = $("#cv")[0]
+    var ctx = cvs.getContext("2d");
+    //当前上场用户
+    let upUser = ""
+    //画笔的颜色
+    let currentColor = "black"
+    //画笔的尺寸
+    let currentSiz = $("#range").val()
+    //画笔移动
+    ctx.lineCap = "round";
+    // 在客户端程序创建一个 websocket 链接到服务器上
+    let ws = new WebSocket("ws://127.0.0.1:3000/" + userName)
+    ///是否上场
+    var isUpUser = false
+    ws.onmessage = function (res) {
+        let dataObj = JSON.parse(res.data)
+        switch (dataObj.type) {
+            // 画笔移动
+            case "move": {
+                ctx.lineTo(dataObj.moveX, dataObj.moveY);
+                ctx.stroke();
+            }
+                break;
+            //画笔按下时
+            case "down": {
+                //设置画笔的颜色
+                ctx.strokeStyle = dataObj.currentColor
+                //设置画笔的尺寸
+                ctx.lineWidth = dataObj.currentSiz
+                ctx.beginPath();
+                ctx.moveTo(dataObj.downX, dataObj.downY);
+            }
+                break;
+            //时间
+            case "day": {
+                $("#currentTime>span").text(dataObj.time)
+            }
+                break;
+            // 画笔移动
+            case "info": {
+                let naem = $("<b class='username'></b>").text(dataObj.userName)
+                let content = $("<b class='usercontent'></b>").text(':' + dataObj.content)
+                let p = $("<p></p>").append(naem).append(content)
+                $("#info-box").append(p)
+                $("#sort-box").html("")
+                dataObj.sort.forEach((item, index) => {
+                    let span1 = $("<span></span>").text(`No:\t${index + 1}`)
+                    let span2 = $("<span></span>").text(item.userName)
+                    let span3 = $("<span></span>").text(`${item.count}\t次`)
+                    let p1 = $("<p></p>").append(span1).append(span2).append(span3)
+                    $("#sort-box").append(p1)
+                });
+            }
+                break;
+            //上场列表
+            case "upUser": {
+                console.log(dataObj);
+                $("#prepare-box").html("")
+                dataObj.upUserList.forEach((item) => {
+                    let span = $("<span></span>").text(":在上场")
+                    let li = $("<li></li>").text(item.userName)
+                    if (isUpUser && item.userName == userName) {
+
+                        li.append(span)
+                    }
+                    $("#prepare-box").append(li)
+                });
+            }
+                break;
+            //是否上场
+            case "isCurrentUser": {
+                isUpUser = dataObj.bool
+                console.log(dataObj, "上场了");
+                if (isUpUser) {
+                    start()
+                } else {
+                    document.onmousemove = null;
+
+                    cvs.onmousedown = null
+                }
+
+                dataObj.userName && $("#currentTime>span").text("")
+            }
+
+                break;
+            default:
+                break;
+        }
+        let chatBox = $("#info-box")[0]
+
+        if (chatBox.scrollTop + chatBox.clientHeight <= chatBox.scrollHeight) {
+            chatBox.scrollTop = chatBox.scrollHeight - chatBox.clientHeight
+        }
+    }
+    function start(params) {
+        cvs.onmousedown = function (e1) {
+            // 重置画笔的路径
+            ctx.strokeStyle = currentColor
+            ctx.lineWidth = currentSiz
+            let downX = e1.pageX - cvs.offsetLeft
+            let downY = e1.pageY - cvs.offsetTop
+            ctx.beginPath();
+            ctx.moveTo(downX, downY);
+            //发送当前画笔初始位置
+            ws.send(JSON.stringify({ type: "down", downX: downX, downY: downY, userName, currentColor, currentSiz }))
+            document.onmousemove = function (e2) {
+                let moveX = e2.pageX - cvs.offsetLeft
+                let moveY = e2.pageY - cvs.offsetTop
+                ctx.lineTo(moveX, moveY);
+                ctx.stroke();
+                ws.send(JSON.stringify({ type: "move", moveX, moveY, userName }))
+            }
+        }
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+        //颜色点击
+        $("#set-color>ul").on("click", "li", function (e) {
+            currentColor = e.currentTarget.getAttribute("data-color")
+        })
+        //尺寸发生改变3
+        $("#range").change(function (e) {
+            console.log($(this).val());
+            currentSiz = $(this).val()
+            $(this).siblings("i").text($(this).val())
+        })
+    }
+
+    //上场
+    $("#upUser").click(function () {
+        if (!isUpUser) {
+            console.log("点击上场");
+            ws.send(
+                JSON.stringify({
+                    type: "up",
+                })
+            )
+        }
+    })
+    //发送消息
+    window.onkeydown = function (e) {
+        if (e.keyCode == 13) {
+            if (!ws) {
+                alert("你已断开链接")
+                return
+            }
+            let msg = $("#msg").val().trim()
+            console.log($("#msg").val());
+            if (!msg) {
+                alert("你没有写聊天内容")
+                return
+            }
+
+            ws.send(JSON.stringify({
+                type: "info",
+                msg,
+            }))
+            $("#msg").val("")
+        }
+    }
+
+
+
+
+
+
+</script>
+
+</html>
